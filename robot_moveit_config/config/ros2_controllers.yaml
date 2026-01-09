@@ -1,0 +1,42 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 60    #in Hz
+
+    #JointTrajectoryController allows you to send joints on a robot
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    #Publishes the current state of the robot
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    gripper_action_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+#Define the parameters of each controller
+arm_controller:
+  ros__parameters:
+    joints: 
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+    #Command interface (commands to each joint) and state interface (feedback)
+    command_interfaces: 
+      - effort
+    state_interfaces:
+      - position
+      - velocity
+    open_loop_control: true 
+    state_publish_rate: 40.0 
+gripper_action_controller:
+  ros__parameters:
+    joints: 
+      - panda_finger_joint1
+    command_interfaces: 
+      - effort
+    state_interfaces: 
+      - position
+      - velocity      
